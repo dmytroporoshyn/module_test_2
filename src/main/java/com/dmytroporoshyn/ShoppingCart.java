@@ -6,7 +6,7 @@ import java.text.*;
 * Containing items and calculating price.
 */
 public class ShoppingCart {
-    public static enum ItemType { NEW, REGULAR, SECOND_FREE, SALE };
+    public enum ItemType { NEW, REGULAR, SECOND_FREE, SALE }
     /**
      * Tests all class methods.
      */
@@ -63,7 +63,7 @@ public class ShoppingCart {
     public String formatTicket(){
         if (items.size() == 0)
             return "No items.";
-        List<String[]> lines = new ArrayList<String[]>();
+        List<String[]> lines = new ArrayList<>();
         String[] header = {"#","Item","Price","Quan.","Discount","Total"};
         int[] align = new int[] { 1, -1, 1, 1, 1, 1 };
         // formatting each line
@@ -77,7 +77,7 @@ public class ShoppingCart {
                 item.title,
                 MONEY.format(item.price),
                 String.valueOf(item.quantity),
-                (discount == 0) ? "-" : (String.valueOf(discount) + "%"),
+                (discount == 0) ? "-" : (discount + "%"),
                 MONEY.format(itemTotal)
             });
             total += itemTotal;
@@ -88,11 +88,11 @@ public class ShoppingCart {
         int[] width = new int[]{0,0,0,0,0,0};
         for (String[] line : lines)
             for (int i = 0; i < line.length; i++)
-                width[i] = (int) Math.max(width[i], line[i].length());
+                width[i] = Math.max(width[i], line[i].length());
         for (int i = 0; i < header.length; i++)
-            width[i] = (int) Math.max(width[i], header[i].length());
+            width[i] = Math.max(width[i], header[i].length());
         for (int i = 0; i < footer.length; i++)
-            width[i] = (int) Math.max(width[i], footer[i].length());
+            width[i] = Math.max(width[i], footer[i].length());
         // line length
         int lineLength = width.length - 1;
         for (int w : width)
@@ -188,5 +188,5 @@ public class ShoppingCart {
         ItemType type;
     }
     /** Container for added items */
-    private List<Item> items = new ArrayList<Item>();
+    private List<Item> items = new ArrayList<>();
 }

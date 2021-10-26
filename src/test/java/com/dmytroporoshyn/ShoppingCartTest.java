@@ -58,7 +58,7 @@ class ShoppingCartTest {
                 arguments("  test", 1, 6),
                 arguments("tes", 1, 3),
                 arguments(" test ", 0, 6),
-                arguments("tes", 1, 3)
+                arguments("tes", 0, 3)
         );
     }
 }
