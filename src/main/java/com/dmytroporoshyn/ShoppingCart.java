@@ -113,8 +113,7 @@ public class ShoppingCart {
             appendFormatted(sb, header[i], align[i], width[i]);
         sb.append("\n");
         // separator
-        sb.append("-".repeat(Math.max(0, lineLength)));
-        sb.append("\n");
+        buildSeparator(sb, lineLength);
         // lines
         for (String[] line : lines) {
             for (int i = 0; i < line.length; i++)
@@ -122,12 +121,21 @@ public class ShoppingCart {
             sb.append("\n");
         }
         // separator
-        sb.append("-".repeat(Math.max(0, lineLength)));
-        sb.append("\n");
+        buildSeparator(sb, lineLength);
         // footer
         for (int i = 0; i < footer.length; i++)
             appendFormatted(sb, footer[i], align[i], width[i]);
         return sb.toString();
+    }
+
+    /**
+     * Appends separator to sb.
+     *
+     * @param lineLength is length of separator.
+     */
+    public static void buildSeparator(StringBuilder sb, int lineLength) {
+        sb.append("-".repeat(Math.max(0, lineLength))).append("\n");
+        sb.append("\n");
     }
 
     /**
