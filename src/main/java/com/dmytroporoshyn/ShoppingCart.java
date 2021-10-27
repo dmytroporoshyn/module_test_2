@@ -96,13 +96,11 @@ public class ShoppingCart {
         // formatting table
         // column max length
         int[] width = new int[]{0, 0, 0, 0, 0, 0};
-        for (String[] line : lines)
-            for (int i = 0; i < line.length; i++)
-                width[i] = Math.max(width[i], line[i].length());
-        for (int i = 0; i < header.length; i++)
-            width[i] = Math.max(width[i], header[i].length());
-        for (int i = 0; i < footer.length; i++)
-            width[i] = Math.max(width[i], footer[i].length());
+        for (String[] line : lines) {
+            buildColumnMaxLength(width, line);
+        }
+        buildColumnMaxLength(width, header);
+        buildColumnMaxLength(width, footer);
         // line length
         int lineLength = width.length - 1;
         for (int w : width)
@@ -116,8 +114,9 @@ public class ShoppingCart {
         buildSeparator(sb, lineLength);
         // lines
         for (String[] line : lines) {
-            for (int i = 0; i < line.length; i++)
+            for (int i = 0; i < line.length; i++) {
                 appendFormatted(sb, line[i], align[i], width[i]);
+            }
             sb.append("\n");
         }
         // separator
@@ -129,12 +128,23 @@ public class ShoppingCart {
     }
 
     /**
+     * Calculate max width array.
+     *
+     * @param width is width array.
+     * @param value is an array of columns contents.
+     */
+    public static void buildColumnMaxLength(int[] width, String[] value) {
+        for (int i = 0; i < value.length; i++)
+            width[i] = Math.max(width[i], value[i].length());
+    }
+
+    /**
      * Appends separator to sb.
      *
      * @param lineLength is length of separator.
      */
     public static void buildSeparator(StringBuilder sb, int lineLength) {
-        sb.append("-".repeat(Math.max(0, lineLength))).append("\n");
+        sb.append("-".repeat(Math.max(0, lineLength)));
         sb.append("\n");
     }
 
