@@ -71,44 +71,43 @@ public class ShoppingCart {
      * if no items in cart returns "No items." string.
      */
     public String formatTicket() {
-        if (items.size() == 0)
+        if (items.size() == 0) {
             return "No items.";
+        }
         List<String[]> lines = new ArrayList<>();
         String[] header = {"#", "Item", "Price", "Quan.", "Discount", "Total"};
         int[] align = new int[]{1, -1, 1, 1, 1, 1};
+        int[] width = new int[]{0, 0, 0, 0, 0, 0};
         // formatting each line
         double total = 0.00;
         int index = 0;
         for (Item item : items) {
             int discount = calculateDiscount(item.getType(), item.getQuantity());
             double itemTotal = item.getPrice() * item.getQuantity() * (100.00 - discount) / 100.00;
-            lines.add(new String[]{
+            String[] line = new String[]{
                     String.valueOf(++index),
                     item.getTitle(),
                     MONEY.format(item.getPrice()),
                     String.valueOf(item.getQuantity()),
                     (discount == 0) ? "-" : (discount + "%"),
                     MONEY.format(itemTotal)
-            });
+            };
+            lines.add(line);
+            buildColumnMaxLength(width, line);
             total += itemTotal;
         }
         String[] footer = {String.valueOf(index), "", "", "", "", MONEY.format(total)};
-        // formatting table
         // column max length
-        int[] width = new int[]{0, 0, 0, 0, 0, 0};
-        for (String[] line : lines) {
-            buildColumnMaxLength(width, line);
-        }
         buildColumnMaxLength(width, header);
         buildColumnMaxLength(width, footer);
         // line length
-        int lineLength = width.length - 1;
-        for (int w : width)
-            lineLength += w;
         StringBuilder sb = new StringBuilder();
+        int lineLength = width.length - 1;
         // header
-        for (int i = 0; i < header.length; i++)
+        for (int i = 0; i < header.length; i++) {
             appendFormatted(sb, header[i], align[i], width[i]);
+            lineLength += width[i];
+        }
         sb.append("\n");
         // separator
         buildSeparator(sb, lineLength);
