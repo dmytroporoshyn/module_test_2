@@ -8,6 +8,19 @@ import java.text.*;
  */
 public class ShoppingCart {
 
+    private static final NumberFormat MONEY;
+
+    /**
+     * Container for added items
+     */
+    private final List<Item> items = new ArrayList<>();
+
+    static {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator('.');
+        MONEY = new DecimalFormat("$#.00", symbols);
+    }
+
     /**
      * Tests all class methods.
      */
@@ -119,15 +132,6 @@ public class ShoppingCart {
         return sb.toString();
     }
 
-    // --- private section -----------------------------------------------------
-    private static final NumberFormat MONEY;
-
-    static {
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-        symbols.setDecimalSeparator('.');
-        MONEY = new DecimalFormat("$#.00", symbols);
-    }
-
     /**
      * Appends to sb formatted value.
      * Trims string if its length > width.
@@ -177,9 +181,4 @@ public class ShoppingCart {
             discount = 80;
         return discount;
     }
-
-    /**
-     * Container for added items
-     */
-    private List<Item> items = new ArrayList<>();
 }
