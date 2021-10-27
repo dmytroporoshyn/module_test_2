@@ -121,11 +121,9 @@ public class ShoppingCart {
                 appendFormatted(sb, line[i], align[i], width[i]);
             sb.append("\n");
         }
-        if (lines.size() > 0) {
-            // separator
-            sb.append("-".repeat(Math.max(0, lineLength)));
-            sb.append("\n");
-        }
+        // separator
+        sb.append("-".repeat(Math.max(0, lineLength)));
+        sb.append("\n");
         // footer
         for (int i = 0; i < footer.length; i++)
             appendFormatted(sb, footer[i], align[i], width[i]);
