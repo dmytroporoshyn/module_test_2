@@ -65,7 +65,7 @@ public class ShoppingCart {
     public String formatTicket() {
         if (items.size() == 0)
             return "No items.";
-        List<String[]> lines = new ArrayList<String[]>();
+        List<String[]> lines = new ArrayList<>();
         String[] header = {"#", "Item", "Price", "Quan.", "Discount", "Total"};
         int[] align = new int[]{1, -1, 1, 1, 1, 1};
         // formatting each line
@@ -105,8 +105,7 @@ public class ShoppingCart {
             appendFormatted(sb, header[i], align[i], width[i]);
         sb.append("\n");
         // separator
-        for (int i = 0; i < lineLength; i++)
-            sb.append("-");
+        sb.append("-".repeat(Math.max(0, lineLength)));
         sb.append("\n");
         // lines
         for (String[] line : lines) {
@@ -116,8 +115,7 @@ public class ShoppingCart {
         }
         if (lines.size() > 0) {
             // separator
-            for (int i = 0; i < lineLength; i++)
-                sb.append("-");
+            sb.append("-".repeat(Math.max(0, lineLength)));
             sb.append("\n");
         }
         // footer
