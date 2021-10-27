@@ -144,9 +144,11 @@ public class ShoppingCart {
     public static void appendFormatted(StringBuilder sb, String value, int align, int width) {
         if (value.length() > width)
             value = value.substring(0, width);
-        int before = (align == 0)
-                ? (width - value.length()) / 2
-                : (align == -1) ? 0 : width - value.length();
+        int before = switch (align) {
+            case 0 -> (width - value.length()) / 2;
+            case 1 -> width - value.length();
+            default -> 0;
+        };
         int after = width - value.length() - before;
         while (before-- > 0)
             sb.append(" ");
